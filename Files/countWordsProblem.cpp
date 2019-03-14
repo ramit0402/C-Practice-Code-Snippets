@@ -94,7 +94,6 @@ std::vector<std::string> StringToVector(std::string theString, char separator){
     std::string sIndivStr;
     
     // While there are more words to extract keep
-    // executing
     // getline takes strings from a stream of words stored
     // in the stream and each time it finds a blanks space
     // it stores the word proceeding the space in sIndivStr
