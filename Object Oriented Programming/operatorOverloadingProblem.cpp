@@ -38,10 +38,7 @@ public:
         // characters that can then be accessed as
         // a string object
         std::ostringstream boxStream;
-        boxStream << "Box : " <<
-                length << ", " <<
-                width << ", " <<
-                breadth;
+        boxStream << "Box : " << length << ", " << width << ", " << breadth;
         
         // Return a string representation of the stream
         boxString = boxStream.str();
@@ -85,9 +82,8 @@ public:
     
     // Check for which is bigger
     bool operator < (const Box& box2){
-        double thisSize = length + width + breadth;
-        double box2Size = box2.length + box2.width +
-        box2.breadth;
+        double thisSize = length * width * breadth;
+        double box2Size = box2.length * box2.width * box2.breadth;
         if (thisSize < box2Size){
             return true;
         } else {
@@ -146,5 +142,8 @@ int main()
     
     box = box2;
     std::cout << box << "\n";
+
+     std::cout << "Are boxes equal : " <<
+            (box == box2) << "\n";
     return 0;
 }
