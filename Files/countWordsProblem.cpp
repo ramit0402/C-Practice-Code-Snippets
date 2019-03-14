@@ -12,7 +12,10 @@
 // (console)
 // fstream is needed for working with files
 #include <fstream>
-
+ 
+std::vector<std::string> StringToVector(std::string, 
+        char separator);
+ 
 int main()
 {
     std::ofstream writeToFile;
@@ -44,13 +47,34 @@ int main()
     // Open the file for reading
     readFromFile.open("test.txt", std::ios_base::in);
     
-    if(readFromFile.is_open()){     
+    if(readFromFile.is_open()){
         // Read text from file
         while(readFromFile.good()){
             getline(readFromFile, txtFromFile);
         
             // Print text from file
             std::cout << txtFromFile << "\n";
+            
+            std::vector<std::string> vect = 
+                    StringToVector(txtFromFile, ' ');
+            
+            int wordsInLine = vect.size();
+            
+            std::cout << "Words in Line : " << 
+                     wordsInLine << "\n";
+            
+            int charCount = 0;
+            
+            for(auto word: vect){
+                for(auto letter: word){
+                    charCount++;
+                }
+            }
+            
+            int avgNumChars = charCount/wordsInLine;
+            
+            std::cout << "Avg Word Length : " <<
+            avgNumChars << "\n";
         }   
         readFromFile.close();
     }
@@ -58,3 +82,25 @@ int main()
     return 0;
 }
  
+std::vector<std::string> StringToVector(std::string theString, char separator){
+    // Create a vector
+    std::vector<std::string> vecsWords;
+    
+    // A stringstream object receives strings separated
+    // by a space and then spits them out 1 by 1
+    std::stringstream ss(theString);
+    
+    // Will temporarily hold each word in the string
+    std::string sIndivStr;
+    
+    // While there are more words to extract keep
+    // executing
+    // getline takes strings from a stream of words stored
+    // in the stream and each time it finds a blanks space
+    // it stores the word proceeding the space in sIndivStr
+    while(getline(ss, sIndivStr, separator)){
+        // Put the string into a vector
+        vecsWords.push_back(sIndivStr);
+    }
+    return vecsWords;
+}
